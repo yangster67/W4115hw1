@@ -6,11 +6,7 @@
 #include <string>
 #include <unordered_map>
 
-typedef token::TokenType TokenType;
-namespace token {
-}
 
-// Define the TokenType enumeration
 enum class TokenType {
     // Special Tokens
     ILLEGAL,
@@ -90,7 +86,5 @@ inline TokenType LookupIdent(const std::string& ident) {
     }
     return TokenType::IDENTIFIER;
 }
-
-} // namespace token
 
 #endif // TOKEN_H
