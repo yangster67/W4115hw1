@@ -1,5 +1,3 @@
-// lexer.cpp
-
 #include "lexer.h"
 #include <cctype>
 #include <iostream>
@@ -109,7 +107,7 @@ std::string Lexer::readIdentifier() {
 
 std::string Lexer::readNumber() {
     int startPosition = position;
-    while (isdigitisdigitisdigitisdigitisdigitisdigitisdigit(isdigit(ch))) {
+    while ((isdigit(ch))) {
         readChar();
     }
     return input.substr(startPosition, position - startPosition);
