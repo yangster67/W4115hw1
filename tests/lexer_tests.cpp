@@ -74,6 +74,7 @@ void test_program1() {
 }
 
 // Test Program 2
+
 void test_program2() {
     std::string program = R"(
     int x = 7;
@@ -84,36 +85,37 @@ void test_program2() {
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
-        Token(TokenType::INT, "int"),
-        Token(TokenType::IDENTIFIER, "x"),
-        Token(TokenType::ASSIGN, "="),
-        Token(TokenType::NUMBER, "7"),
-        Token(TokenType::SEMICOLON, ";"),
-        Token(TokenType::IF, "if"),
-        Token(TokenType::LPAREN, "("),
-        Token(TokenType::IDENTIFIER, "x"),
-        Token(TokenType::EQUAL, "=="),
-        Token(TokenType::NUMBER, "7"),
-        Token(TokenType::RPAREN, ")"),
-        Token(TokenType::LBRACE, "{"),
-        Token(TokenType::IDENTIFIER, "x"),
-        Token(TokenType::ASSIGN, "="),
-        Token(TokenType::IDENTIFIER, "x"),
-        Token(TokenType::MINUS, "-"),
-        Token(TokenType::NUMBER, "1"),
-        Token(TokenType::SEMICOLON, ";"),
-        Token(TokenType::RBRACE, "}")
+        Token(TYPE, "int"),
+        Token(IDENTIFIER, "x"),
+        Token(OPERATOR, "="),
+        Token(NUMBER, "7"),
+        Token(SYMBOL, ";"),
+        Token(KEYWORD, "if"),
+        Token(SYMBOL, "("),
+        Token(IDENTIFIER, "x"),
+        Token(OPERATOR, "=="),
+        Token(NUMBER, "7"),
+        Token(SYMBOL, ")"),
+        Token(SYMBOL, "{"),
+        Token(IDENTIFIER, "x"),
+        Token(OPERATOR, "="),
+        Token(IDENTIFIER, "x"),
+        Token(OPERATOR, "-"),
+        Token(NUMBER, "1"),
+        Token(SYMBOL, ";"),
+        Token(SYMBOL, "}")
     };
 
     Scanner scanner;
+    // Call your scan function here
     std::vector<Token> tokens = scanner.scan(program);
 
+    // Compare expected and actual tokens
     compareTokens(expectedTokens, tokens);
 
     std::cout << "test_program2 passed" << std::endl;
 }
 
-// Test Program 3
 void test_program3() {
     std::string program = R"(
     int n = 3;
@@ -125,5 +127,117 @@ void test_program3() {
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
-        Token(TokenType::INT, "int"),
-        Token(
+        Token(TYPE, "int"),
+        Token(IDENTIFIER, "n"),
+        Token(OPERATOR, "="),
+        Token(NUMBER, "3"),
+        Token(SYMBOL, ";"),
+        Token(TYPE, "int"),
+        Token(IDENTIFIER, "result"),
+        Token(OPERATOR, "="),
+        Token(NUMBER, "1"),
+        Token(SYMBOL, ";"),
+        Token(KEYWORD, "forn"),
+        Token(SYMBOL, "("),
+        Token(IDENTIFIER, "i"),
+        Token(ERROR, ","),
+        Token(IDENTIFIER, "n"),
+        Token(SYMBOL, ")"),
+        Token(SYMBOL, "{"),
+        Token(IDENTIFIER, "result"),
+        Token(OPERATOR, "="),
+        Token(IDENTIFIER, "result"),
+        Token(OPERATOR, "*"),
+        Token(IDENTIFIER, "i"),
+        Token(SYMBOL, ";"),
+        Token(SYMBOL, "}")
+    };
+
+    Scanner scanner;
+    std::vector<Token> tokens = scanner.scan(program);
+
+    // Compare expected and actual tokens
+    compareTokens(expectedTokens, tokens);
+
+    std::cout << "test_program3 passed" << std::endl;
+}
+
+void test_program4() {
+    std::string program = R"(
+    int y = 10
+    if (y == 10) {
+        y = y + 2;
+    }
+    )";
+
+    // Expected tokens
+    std::vector<Token> expectedTokens = {
+        Token(TYPE, "int"),
+        Token(IDENTIFIER, "y"),
+        Token(OPERATOR, "="),
+        Token(NUMBER, "10"),
+        Token(ERROR, "Expected ';' after '10'"),
+        Token(KEYWORD, "if"),
+        Token(SYMBOL, "("),
+        Token(IDENTIFIER, "y"),
+        Token(OPERATOR, "=="),
+        Token(NUMBER, "10"),
+        Token(SYMBOL, ")"),
+        Token(SYMBOL, "{"),
+        Token(IDENTIFIER, "y"),
+        Token(OPERATOR, "="),
+        Token(IDENTIFIER, "y"),
+        Token(OPERATOR, "+"),
+        Token(NUMBER, "2"),
+        Token(SYMBOL, ";"),
+        Token(SYMBOL, "}")
+    };
+
+    Scanner scanner;
+    std::vector<Token> tokens = scanner.scan(program);
+
+    // Compare expected and actual tokens
+    compareTokens(expectedTokens, tokens);
+
+    std::cout << "test_program4 passed" << std::endl;
+}
+
+void test_program5() {
+    std::string program = R"(
+    int a = 5;
+    if (a < 10) {
+        a = a * 2;
+    }
+    )";
+
+    // Expected tokens
+    std::vector<Token> expectedTokens = {
+        Token(TYPE, "int"),
+        Token(IDENTIFIER, "a"),
+        Token(OPERATOR, "="),
+        Token(NUMBER, "5"),
+        Token(SYMBOL, ";"),
+        Token(KEYWORD, "if"),
+        Token(SYMBOL, "("),
+        Token(IDENTIFIER, "a"),
+        Token(ERROR, "Unknown operator '<'"),
+        Token(NUMBER, "10"),
+        Token(SYMBOL, ")"),
+        Token(SYMBOL, "{"),
+        Token(IDENTIFIER, "a"),
+        Token(OPERATOR, "="),
+        Token(IDENTIFIER, "a"),
+        Token(OPERATOR, "*"),
+        Token(NUMBER, "2"),
+        Token(SYMBOL, ";"),
+        Token(SYMBOL, "}")
+    };
+
+    Scanner scanner;
+    std::vector<Token> tokens = scanner.scan(program);
+
+    // Compare expected and actual tokens
+    compareTokens(expectedTokens, tokens);
+
+    std::cout << "test_program5 passed" << std::endl;
+}
