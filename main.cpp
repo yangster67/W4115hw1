@@ -1,15 +1,20 @@
-// main.cpp
-
 #include <iostream>
 #include <string>
-#include <cstdlib>  // For getenv()
-#include "repl.h"
+using namespace std;
 
-int main() {
-    // Get the current username
-    std::cout << "Hello! This is the force_pp programming language!\n";
-    std::cout << "Feel free to type in commands\n";
-    repl::Start(std::cin, std::cout);
+int main(int argc, char *argv[]) {
 
-    return 0;
+    if(argc != 2) {
+        cout << "Usage: ./parser <file>" << endl;
+        exit(1);
+    }
+
+    freopen(argv[1], "r", stdin);
+    string line;
+
+    while(getline(cin, bio)) {
+
+    }
+
 }
+
