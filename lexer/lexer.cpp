@@ -53,14 +53,17 @@ bool Lexer::isDigit(char ch) {
     return std::isdigit(ch);
 }
 
-Token Lexer::newToken(TokenType type, char ch) {
-    return Token{type, literal};
+std::string charToString(char ch) {
+    return std::string(1, ch);
+}
+
+Token Lexer::newToken(TokenType type, const std::string& literal) {
+    return Token(type, literal);
 }
 
 Token Lexer::nextToken() {
     Token tok;
     skipWhitespace();
-
     switch (ch) {
         case '=':
             if (peekChar() == '=') {
@@ -69,14 +72,14 @@ Token Lexer::nextToken() {
                 std::string literal = std::string(1, currentCh) + std::string(1, ch);
                 tok = newToken(TokenType::EQUAL, literal);
             } else {
-                tok = newToken(TokenType::ASSIGN, ch);
+                tok = newToken(TokenType::ASSIGN, charToString(ch));
             }
             break;
         case '+':
-            tok = newToken(TokenType::PLUS, ch);
+            tok = newToken(TokenType::PLUS, charToString(ch));
             break;
         case '-':
-            tok = newToken(TokenType::MINUS, ch);
+            tok = newToken(TokenType::MINUS, charToString(ch));
             break;
         case '!':
             if (peekChar() == '=') {
@@ -85,17 +88,17 @@ Token Lexer::nextToken() {
                 std::string literal = std::string(1, currentCh) + std::string(1, ch);
                 tok = Token{TokenType::NOT_EQ, literal};
             } else {
-                tok = newToken(TokenType::BANG, ch);
+                tok = newToken(TokenType::BANG, charToString(ch));
             }
             break;
         case '/':
-            tok = newToken(TokenType::SLASH, ch);
+            tok = newToken(TokenType::SLASH, charToString(ch));
             break;
         case '*':
-            tok = newToken(TokenType::ASTERISK, ch);
+            tok = newToken(TokenType::ASTERISK, charToString(ch));
             break;
         case '<':
-            tok = newToken(TokenType::LT, ch);
+            tok = newToken(TokenType::LT, charToString(ch));
             break;
         case '>':
             tok = newToken(TokenType::GT, ch);
@@ -120,12 +123,12 @@ Token Lexer::nextToken() {
             break;
         case 0:
             tok.literal = "";
-            tok.type = TokenType::EOF_TOKEN;
+            tok.type = TokenType::EOF_T;
             break;
         default:
             if (isLetter(ch)) {
                 tok.literal = readIdentifier();
-                tok.type = Token::lookupIdent(tok.literal);
+                tok.type = LookupIdent(tok.literal);
                 return tok;
             } else if (isDigit(ch)) {
                 tok.type = TokenType::INT;

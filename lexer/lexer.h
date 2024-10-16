@@ -23,7 +23,7 @@ public:
     Lexer(const std::string& input);
     Token nextToken();
 
-    static Token newToken(TokenType type, char ch);
+    static Token newToken(TokenType type, const std::string& literal);
 };
 
 #endif // LEXER_H
