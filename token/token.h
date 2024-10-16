@@ -6,7 +6,9 @@
 #include <string>
 #include <unordered_map>
 
+typedef token::TokenType TokenType;
 namespace token {
+}
 
 // Define the TokenType enumeration
 enum class TokenType {
