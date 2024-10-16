@@ -15,6 +15,7 @@ enum class TokenType {
     // Identifiers + literals
     IDENTIFIER,  // variable names, function names, etc.
     NUMBER,      // numeric literals
+    BANG,        // !
 
     // Operators
     ASSIGN,    // =
@@ -24,6 +25,8 @@ enum class TokenType {
     ASTERISK,  // *
     EQUAL,     // ==
     NOT_EQUAL, // !=
+    LT,        // <
+    GT,        // >
 
     // Delimiters
     SEMICOLON, // ;

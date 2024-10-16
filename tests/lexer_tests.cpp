@@ -4,12 +4,9 @@
 #include <cassert>
 
 #include "../token/token.h"
+#include "../lexer/lexer.h"
 // Include your scanner implementation
-// #include "scanner.h"
 
-// Use the token namespace
-using token::Token;
-using token::TokenType;
 
 // Function to compare expected and actual tokens
 void compareTokens(const std::vector<Token>& expected, const std::vector<Token>& actual) {
@@ -42,6 +39,12 @@ void test_program1() {
     int a = 5;
     int b = 10;
     int sum = a + b;
+    )";
+    std::string program = R"(
+    int x = 7;
+    if (x == 7) {
+        x = x - 1;
+    }
     )";
 
     // Expected tokens
@@ -76,12 +79,11 @@ void test_program1() {
 // Test Program 2
 
 void test_program2() {
-    std::string program = R"(
-    int x = 7;
-    if (x == 7) {
-        x = x - 1;
-    }
-    )";
+    std::string program = 
+    "int x = 7;"
+    "if (x == 7) {"
+    "   x = x - 1;"
+    "}";
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
@@ -117,13 +119,12 @@ void test_program2() {
 }
 
 void test_program3() {
-    std::string program = R"(
-    int n = 3;
-    int result = 1;
-    forn(i, n) {
-        result = result * i;
-    }
-    )";
+    std::string program = 
+    "int n = 3;"
+    "int result = 1;"
+    "forn(i, n) {"
+    "   result = result * i;"
+    "}";
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
