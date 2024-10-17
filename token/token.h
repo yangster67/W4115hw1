@@ -6,11 +6,7 @@
 #include <string>
 #include <unordered_map>
 
-typedef token::TokenType TokenType;
-namespace token {
-}
 
-// Define the TokenType enumeration
 enum class TokenType {
     // Special Tokens
     ILLEGAL,
@@ -19,6 +15,8 @@ enum class TokenType {
     // Identifiers + literals
     IDENTIFIER,  // variable names, function names, etc.
     NUMBER,      // numeric literals
+    BANG,        // !
+    DEBUG,       // DBG
 
     // Operators
     ASSIGN,    // =
@@ -28,6 +26,8 @@ enum class TokenType {
     ASTERISK,  // *
     EQUAL,     // ==
     NOT_EQUAL, // !=
+    LT,        // <
+    GT,        // >
 
     // Delimiters
     SEMICOLON, // ;
@@ -37,6 +37,10 @@ enum class TokenType {
     RPAREN,    // )
     LBRACE,    // {
     RBRACE,    // }
+
+    //logical operators
+    AND,        // &&
+    OR,         // || 
 
     // Keywords
     WHILE,
@@ -56,12 +60,12 @@ enum class TokenType {
 };
 
 // Token structure
-struct Token {
+class Token {
+public:
     TokenType type;
     std::string literal;
 
-    Token(TokenType type = TokenType::ILLEGAL, const std::string& literal = "")
-        : type(type), literal(literal) {}
+    Token(TokenType type, const std::string& literal) : type(type), literal(literal) {}
 };
 
 // Function to get the keywords map
@@ -76,6 +80,7 @@ inline const std::unordered_map<std::string, TokenType>& get_keywords() {
         {"vector", TokenType::VECTOR},
         {"ll",     TokenType::LL},
         {"pair",   TokenType::PAIR},
+        {"DBG",    TokenType::DEBUG}
         // Add other keywords if necessary
     };
     return keywords;
@@ -90,7 +95,5 @@ inline TokenType LookupIdent(const std::string& ident) {
     }
     return TokenType::IDENTIFIER;
 }
-
-} // namespace token
 
 #endif // TOKEN_H
