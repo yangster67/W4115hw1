@@ -10,16 +10,26 @@ Dale Yu; dy2446
 # Homework 1 Components
 
 ## Language Components
-KEYWORD = while | if | else | for | forn 
+KEYWORD = while | if | else | for | forn | 
 TYPE = int | vector | ll | pair | 
 SYMBOL = ( | ) | { | } | ;
 OPERATOR = + | - | / | * | = | ==
 NUMBER = [0-9]+
 IDENTIFIER = [a-z][a-z|0-9]*
 
+#### DFA 
+We have the DFA rendered using graphviz and it is in the `/DFA`
+
+*How to create the DFA*
+- run the command `dot -Tpng dfa.gv -o dfa.png` 
+Here is our DFA that our lexing algorithm is built on:
+![DFA picture](/DFA/dfa.png)
+
 ## Lexing Algorithm
 
 ## 5 unit tests
+Our tests can be found in the /tests folder and can be ran using the shell script
+through `run_lexer_tests.sh`
 
 
 ## Shell Testing Scripts
