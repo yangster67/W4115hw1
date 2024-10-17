@@ -16,6 +16,7 @@ enum class TokenType {
     IDENTIFIER,  // variable names, function names, etc.
     NUMBER,      // numeric literals
     BANG,        // !
+    DEBUG,       // DBG
 
     // Operators
     ASSIGN,    // =
@@ -36,6 +37,10 @@ enum class TokenType {
     RPAREN,    // )
     LBRACE,    // {
     RBRACE,    // }
+
+    //logical operators
+    AND,        // &&
+    OR,         // || 
 
     // Keywords
     WHILE,
@@ -59,7 +64,7 @@ struct Token {
     TokenType type;
     std::string literal;
 
-    Token(TokenType type = TokenType::ILLEGAL, const std::string& literal = "")
+    Token(TokenType type = TokenType::ILLEGAL, std::string literal = "")
         : type(type), literal(literal) {}
 };
 
@@ -75,6 +80,7 @@ inline const std::unordered_map<std::string, TokenType>& get_keywords() {
         {"vector", TokenType::VECTOR},
         {"ll",     TokenType::LL},
         {"pair",   TokenType::PAIR},
+        {"DBG",    TokenType::DEBUG}
         // Add other keywords if necessary
     };
     return keywords;

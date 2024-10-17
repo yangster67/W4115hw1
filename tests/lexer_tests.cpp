@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <cassert>
 
 #include "../token/token.h"
 #include "../lexer/lexer.h"
-// Include your lexer implementation
 
 
 // Function to compare expected and actual tokens
@@ -36,11 +36,14 @@ int main() {
 
 // Test Program 1
 void test_program1() {
-    std::string program = R"(
-        int x = 7;
-        int y = 10;
-        int result = x + y;
-    )";
+    std::ifstream file("lexer_test1.fpp");
+    if (!file.is_open()) {
+        std::cerr << "Error opening lexer_test3.fpp" << std::endl;
+        return;
+    }
+    std::string program((std::istreambuf_iterator<char>(file)),
+                         std::istreambuf_iterator<char>());
+    file.close();
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
@@ -153,12 +156,7 @@ void test_program2() {
 
 // Test Program 3
 void test_program3() {
-    std::string program =
-        "int n = 3;"
-        "int result = 1;"
-        "forn(i, n) {"
-        "   result = result * i;"
-        "}";
+
 
     // Expected tokens
     std::vector<Token> expectedTokens = {
@@ -208,10 +206,8 @@ void test_program3() {
 // Test Program 4
 void test_program4() {
     std::string program = R"(
-    int y = 10
-    if (y == 10) {
-        y = y + 2;
-    }
+    int y = 10;
+    while (y > 5)
     )";
 
     // Expected tokens
