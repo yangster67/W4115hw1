@@ -11,6 +11,7 @@ digraph finite_state_machine{
     node [shape = doublecircle, label="deliminaters", fontsize = 14] q12;
     node [shape = doublecircle, label="integer", fontsize = 14] q13;
     
+    node [shape = doublecircle, label="keyword (if, while, forn, for)", fontsize = 14] q_keyword;
 
     node [shape = circle, label="65", fontsize = 14] q65;
     node [shape = circle, label="66", fontsize = 14] q66;
@@ -58,4 +59,7 @@ digraph finite_state_machine{
     q67 -> q_id [label = "other symbol"]
     q68 -> q_id [label = "other symbol"]
     q69 -> q_id [label = "other symbol"]
+
+
+    q_id -> q_keyword [label = "check if it is a keyword"]
 }

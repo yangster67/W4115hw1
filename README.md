@@ -22,6 +22,8 @@ We have the DFA rendered using graphviz and it is in the `/DFA`
 
 *How to create the DFA*
 - run the command `dot -Tpng dfa.gv -o dfa.png` 
+Here is our DFA that our lexing algorithm is built on:
+![DFA picture](/DFA/dfa.png)
 
 ## Lexing Algorithm
 
