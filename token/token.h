@@ -60,12 +60,12 @@ enum class TokenType {
 };
 
 // Token structure
-struct Token {
+class Token {
+public:
     TokenType type;
     std::string literal;
 
-    Token(TokenType type = TokenType::ILLEGAL, std::string literal = "")
-        : type(type), literal(literal) {}
+    Token(TokenType type, const std::string& literal) : type(type), literal(literal) {}
 };
 
 // Function to get the keywords map
