@@ -12,7 +12,7 @@ To run tests on Linux/Mac:
 
 To build and lex any file:
 1. make main
-2. ./main <file> 
+2. ./main file_name 
 
 
 # Homework 1 Components
