@@ -5,6 +5,14 @@ Kevin Yang; ky2488
 Dale Yu; dy2446
 
 ## Installation Steps
+Needs GCC installed to compile in c++17.
+
+To run tests on Linux/Mac:
+./run_tests.sh
+
+To build and lex any file:
+1. make main
+2. ./main <file> 
 
 
 # Homework 1 Components
@@ -26,15 +34,10 @@ Here is our DFA that our lexing algorithm is built on:
 ![DFA picture](/DFA/dfa.png)
 
 ## Lexing Algorithm
-
-## 5 unit tests
-Our tests can be found in the /tests folder and can be ran using the shell script
-through `run_lexer_tests.sh`
-
+Most of the time, the symbol type can be deduced from the first character, so it looks at that first and then does maximal munch to see how much we can take per word. 
 
 ## Shell Testing Scripts
 testing scripts are found in `/tests`
-
 
 ##### References 
 Collection of popular macros in comp programming: https://gist.github.com/abinashmeher999/e5993d17e9d25227cbe3#file-comp_macros-h-L3
