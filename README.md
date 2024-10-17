@@ -17,6 +17,12 @@ OPERATOR = + | - | / | * | = | ==
 NUMBER = [0-9]+
 IDENTIFIER = [a-z][a-z|0-9]*
 
+#### DFA 
+We have the DFA rendered using graphviz and it is in the `/DFA`
+
+*How to create the DFA*
+- run the command `dot -Tpng dfa.gv -o dfa.png` 
+
 ## Lexing Algorithm
 
 ## 5 unit tests
