@@ -1,12 +1,14 @@
+
 #include "lexer.h"
 #include <cctype>
+#include <iostream>
 
 Lexer::Lexer(const std::string& input) : input(input), position(0), readPosition(0), ch(0) {
     readChar();
 }
 
 void Lexer::readChar() {
-    if (readPosition >= input.length()) {
+    if (readPosition >= (int)input.length()) {
         ch = 0;
     } else {
         ch = input[readPosition];
@@ -16,7 +18,7 @@ void Lexer::readChar() {
 }
 
 char Lexer::peekChar() {
-    if (readPosition >= input.length()) {
+    if (readPosition >= (int)input.length()) {
         return 0;
     } else {
         return input[readPosition];
@@ -36,6 +38,7 @@ std::string Lexer::readNumber() {
     while (isDigit(ch)) {
         readChar();
     }
+    if(isLetter(ch)) return "";
     return input.substr(startPosition, position - startPosition);
 }
 
@@ -57,13 +60,28 @@ std::string charToString(char ch) {
     return std::string(1, ch);
 }
 
-Token Lexer::newToken(TokenType type, const std::string& literal) {
+Token Lexer::newToken(std::string type, const std::string& literal) {
     return Token(type, literal);
+}
+
+std::vector<std::string> types = {"int", "vector", "ll", "pair"};
+std::vector<std::string> keywords = {"while", "if", "else", "for", "forn"};
+
+// Function to lookup identifiers and keywords
+inline std::string LookupIdent(const std::string& ident) {
+    for(auto z : types) { 
+        if(z == ident) return "TYPE";
+    }
+    for(auto z : keywords) {
+        // std::cout << z << ' ' << ident << '\n';
+        if(z == ident) return "KEYWORD";
+    }
+    return "IDENTIFIER";
 }
 
 Token Lexer::nextToken() {
     //create token to begin with with just random value
-    Token tok(TokenType::ILLEGAL, "");
+    Token tok("ILLEGAL", "");
     //we skip all the white space as possible like self loop
     skipWhitespace();
     switch (ch) {
@@ -72,60 +90,80 @@ Token Lexer::nextToken() {
                 char currentCh = ch;
                 readChar();
                 std::string literal = std::string(1, currentCh) + std::string(1, ch);
-                tok = newToken(TokenType::EQUAL, literal);
+                tok = newToken("OPERATOR", literal);
             } else {
-                tok = newToken(TokenType::ASSIGN, charToString(ch));
+                tok = newToken("OPERATOR", charToString(ch));
+            }
+            break;
+        case '&':
+            if (peekChar() == '&') {
+                char currentCh = ch;
+                readChar();
+                std::string literal = std::string(1, currentCh) + std::string(1, ch);
+                tok = newToken("OPERATOR", literal);
+            } else {
+                tok = newToken("OPERATOR", charToString(ch));
+            }
+            break;
+        case '|':
+            if (peekChar() == '|') {
+                char currentCh = ch;
+                readChar();
+                std::string literal = std::string(1, currentCh) + std::string(1, ch);
+                tok = newToken("OPERATOR", literal);
+            } else {
+                tok = newToken("OPERATOR", charToString(ch));
             }
             break;
         case '+':
-            tok = newToken(TokenType::PLUS, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case '-':
-            tok = newToken(TokenType::MINUS, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case '!':
             if (peekChar() == '=') {
                 char currentCh = ch;
                 readChar();
                 std::string literal = std::string(1, currentCh) + std::string(1, ch);
-                tok = Token{TokenType::NOT_EQ, literal};
+                tok = Token{"OPERATOR", literal};
             } else {
-                tok = newToken(TokenType::BANG, charToString(ch));
+                tok = newToken("OPERATOR", charToString(ch));
             }
             break;
         case '/':
-            tok = newToken(TokenType::SLASH, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case '*':
-            tok = newToken(TokenType::ASTERISK, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case '<':
-            tok = newToken(TokenType::LT, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case '>':
-            tok = newToken(TokenType::GT, charToString(ch));
+            tok = newToken("OPERATOR", charToString(ch));
             break;
         case ';':
-            tok = newToken(TokenType::SEMICOLON, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case '(':
-            tok = newToken(TokenType::LPAREN, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case ')':
-            tok = newToken(TokenType::RPAREN, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case ',':
-            tok = newToken(TokenType::COMMA, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case '{':
-            tok = newToken(TokenType::LBRACE, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case '}':
-            tok = newToken(TokenType::RBRACE, charToString(ch));
+            tok = newToken("SYMBOL", charToString(ch));
             break;
         case 0:
             tok.literal = "";
-            tok.type = TokenType::EOF_T;
+            tok.type = "EOF";
             break;
         default:
             if (isLetter(ch)) {
@@ -133,11 +171,12 @@ Token Lexer::nextToken() {
                 tok.type = LookupIdent(tok.literal);
                 return tok;
             } else if (isDigit(ch)) {
-                tok.type = TokenType::INT;
+                tok.type = "NUMBER";
                 tok.literal = readNumber();
+                if(tok.literal == "") tok.type = "ILLEGAL";
                 return tok;
             } else {
-                tok = newToken(TokenType::ILLEGAL, charToString(ch));
+                tok = newToken("ILLEGAL", charToString(ch));
             }
     }
 

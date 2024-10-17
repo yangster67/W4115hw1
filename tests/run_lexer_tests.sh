@@ -1,6 +1,6 @@
 #!/bin/bash
 
-g++ -std=c++17 -o lexer_tests lexer_tests.cpp
+make run_tests
 
 if [ $? -eq 0 ]; then
     echo "Compilation successful. Running tests..."
