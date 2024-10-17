@@ -62,7 +62,9 @@ Token Lexer::newToken(TokenType type, const std::string& literal) {
 }
 
 Token Lexer::nextToken() {
-    Token tok;
+    //create token to begin with with just random value
+    Token tok(TokenType::ILLEGAL, "");
+    //we skip all the white space as possible like self loop
     skipWhitespace();
     switch (ch) {
         case '=':
@@ -101,25 +103,25 @@ Token Lexer::nextToken() {
             tok = newToken(TokenType::LT, charToString(ch));
             break;
         case '>':
-            tok = newToken(TokenType::GT, ch);
+            tok = newToken(TokenType::GT, charToString(ch));
             break;
         case ';':
-            tok = newToken(TokenType::SEMICOLON, ch);
+            tok = newToken(TokenType::SEMICOLON, charToString(ch));
             break;
         case '(':
-            tok = newToken(TokenType::LPAREN, ch);
+            tok = newToken(TokenType::LPAREN, charToString(ch));
             break;
         case ')':
-            tok = newToken(TokenType::RPAREN, ch);
+            tok = newToken(TokenType::RPAREN, charToString(ch));
             break;
         case ',':
-            tok = newToken(TokenType::COMMA, ch);
+            tok = newToken(TokenType::COMMA, charToString(ch));
             break;
         case '{':
-            tok = newToken(TokenType::LBRACE, ch);
+            tok = newToken(TokenType::LBRACE, charToString(ch));
             break;
         case '}':
-            tok = newToken(TokenType::RBRACE, ch);
+            tok = newToken(TokenType::RBRACE, charToString(ch));
             break;
         case 0:
             tok.literal = "";
@@ -135,7 +137,7 @@ Token Lexer::nextToken() {
                 tok.literal = readNumber();
                 return tok;
             } else {
-                tok = newToken(TokenType::ILLEGAL, ch);
+                tok = newToken(TokenType::ILLEGAL, charToString(ch));
             }
     }
 

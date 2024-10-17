@@ -10,7 +10,7 @@ Dale Yu; dy2446
 # Homework 1 Components
 
 ## Language Components
-KEYWORD = while | if | else | for | forn 
+KEYWORD = while | if | else | for | forn | 
 TYPE = int | vector | ll | pair | 
 SYMBOL = ( | ) | { | } | ;
 OPERATOR = + | - | / | * | = | ==
@@ -20,6 +20,8 @@ IDENTIFIER = [a-z][a-z|0-9]*
 ## Lexing Algorithm
 
 ## 5 unit tests
+Our tests can be found in the /tests folder and can be ran using the shell script
+through `run_lexer_tests.sh`
 
 
 ## Shell Testing Scripts
