@@ -16,7 +16,7 @@ To build and lex any file:
 
 
 # Homework 1 Components
-
+The main files for this part of the homework can be found in `/lexer/lexer.cpp` `/token/token.h` and `/test/lexer_test.cpp`
 ## Language Components
 KEYWORD = while | if | else | for | forn | 
 TYPE = int | vector | ll | pair | 
@@ -33,6 +33,10 @@ We have the DFA rendered using graphviz and it is in the `/DFA`
 Here is our DFA that our lexing algorithm is built on:
 ![DFA picture](/DFA/dfa.png)
 
+This is like the basic structure of the DFA with some additions that we used to come up with our lexing algorithm that is in `/lexer/lexer.cpp`
+- We basically check what character we are at and then test the different cases for what it is. If it is an accept state like the operators, then it is just that for the scanning algorithm. Otherwise it will keep trying to read digits or characters to make it an identifier or number.
+
+  
 ## Lexing Algorithm
 Most of the time, the symbol type can be deduced from the first character, so it looks at that first and then does maximal munch to see how much we can take per word. 
 
